@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Révise — fiches, quiz et planning</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#f3f6fb;--grid:#dfe7f2;--card:#fff;--ink:#14213d;--muted:#5b6b88;--pen:#2447d6;--hl:#ffd84d;--hl-ink:#14213d;--ok:#177a56;--ko:#c13a3a;--line:#c5d3ee;--margin:#e57373;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1520;--grid:#192234;--card:#18202f;--ink:#e8edf7;--muted:#97a6c2;--pen:#8fa8ff;--hl:#e9c53a;--hl-ink:#0f1520;--ok:#4cc99a;--ko:#ff8a8a;--line:#2b3a57;--margin:#a34b4b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1520;--grid:#192234;--card:#18202f;--ink:#e8edf7;--muted:#97a6c2;--pen:#8fa8ff;--hl:#e9c53a;--hl-ink:#0f1520;--ok:#4cc99a;--ko:#ff8a8a;--line:#2b3a57;--margin:#a34b4b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font:400 1rem/1.5 "Atkinson Hyperlegible",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h1,h2{font-family:"Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif;margin:0;line-height:1.15}
+h1{font-size:1.9rem}
+h2{font-size:1.3rem}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--ink);padding:14px 16px 0}
+.wrap{max-width:640px;margin:0 auto}
+nav{display:flex;gap:4px;margin-top:10px}
+nav button{flex:1;font:700 1rem "Bricolage Grotesque",system-ui,sans-serif;padding:10px 4px;border:2px solid var(--ink);border-bottom:0;border-radius:10px 10px 0 0;background:transparent;color:var(--muted);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--hl);color:var(--hl-ink)}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px;display:grid;gap:28px}
+section{display:grid;gap:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--pen);outline-offset:2px}
+.btn{border:2px solid var(--ink);background:var(--card);padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;min-height:44px}
+.btn.main{background:var(--pen);border-color:var(--pen);color:#fff}
+:root[data-theme="dark"] .btn.main{color:#0f1520}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.main{color:#0f1520}}
+.btn.ok{border-color:var(--ok);color:var(--ok)}
+.btn.ko{border-color:var(--ko);color:var(--ko)}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,select,textarea{width:100%;padding:10px 12px;border:2px solid var(--ink);border-radius:10px;background:var(--card);min-height:44px}
+select{width:auto;max-width:60%}
+form{display:grid;gap:10px;padding:16px;background:var(--card);border:2px solid var(--ink);border-radius:12px}
+.card{display:block;width:100%;text-align:left;min-height:220px;padding:44px 20px 12px;border:2px solid var(--ink);border-top:6px solid var(--margin);border-radius:12px;cursor:pointer;background:var(--card) repeating-linear-gradient(transparent 0 33px,var(--line) 33px 34px);background-position:0 44px;line-height:34px;font-size:1.25rem;position:relative}
+.card small{position:absolute;top:10px;left:20px;font-size:.85rem;line-height:1.2;color:var(--muted);font-weight:700}
+.card p{margin:0;white-space:pre-wrap}
+.hint,.empty,.foot{color:var(--muted);margin:0;font-size:.95rem}
+.empty{padding:18px;border:2px dashed var(--line);border-radius:12px;text-align:center}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.list li{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--card);border:2px solid var(--line);border-radius:10px}
+.list .t{flex:1;min-width:0;overflow-wrap:anywhere}
+.list .t span{display:block;color:var(--muted);font-size:.9rem}
+.x{border:0;background:none;color:var(--muted);font-size:1.3rem;min-width:44px;min-height:44px;cursor:pointer}
+.dots{letter-spacing:2px;color:var(--pen);font-size:.8rem}
+.opt{display:block;width:100%;text-align:left;padding:14px 16px;margin-bottom:10px;border:2px solid var(--ink);border-radius:10px;background:var(--card);cursor:pointer;font-size:1.05rem}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}
+.opt.ko{border-color:var(--ko);background:color-mix(in srgb,var(--ko) 18%,var(--card))}
+.q{font:700 1.35rem/1.3 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 14px}
+.score{font:700 3rem "Bricolage Grotesque",system-ui,sans-serif;margin:0}
+.count{margin:0;padding:14px 16px;background:var(--hl);color:var(--hl-ink);border-radius:12px;font-weight:700;font-size:1.1rem}
+.count b{font:700 2rem "Bricolage Grotesque",system-ui,sans-serif;margin-right:6px}
+progress{width:100%;height:14px;accent-color:var(--pen)}
+.chk{width:44px;height:44px;flex:none;border:2px solid var(--ink);border-radius:10px;background:var(--card);cursor:pointer;font-size:1.2rem;color:var(--ok)}
+.done .t{text-decoration:line-through;color:var(--muted)}
+.late .t span{color:var(--ko);font-weight:700}
+@media (prefers-reduced-motion:no-preference){.card,.opt,.btn{transition:transform .08s}.card:active,.opt:active,.btn:active{transform:scale(.99)}}
+.doc{position:relative;display:grid;gap:10px;padding:14px;background:var(--card);border:2px solid var(--ink);border-radius:12px}
+.doc .x{position:absolute;top:0;right:0}
+.doc .row b{padding-right:40px;overflow-wrap:anywhere}
+.md h3,.day h3{font:700 1.05rem "Bricolage Grotesque",system-ui,sans-serif;margin:14px 0 4px}
+.md p{margin:4px 0}.md .li{padding-left:14px;text-indent:-14px}
+summary{font-weight:700;cursor:pointer;min-height:32px}
+.day h3{margin:6px 0 8px;text-transform:capitalize}
+.day li b{flex:none;width:92px;font-size:.9rem}
+.list li.revision{border-color:var(--pen)}.list li.perso{border-color:var(--ok)}.list li.fixe{background:var(--grid)}.list li.pause{opacity:.75}
+.week{display:grid;gap:14px}
+textarea{resize:vertical}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<header><div class="wrap"><h1>Révise</h1>
+<nav role="tablist" aria-label="Sections">
+<button role="tab" data-act="tab" data-v="cours">Cours</button>
+<button role="tab" data-act="tab" data-v="fiches">Fiches</button>
+<button role="tab" data-act="tab" data-v="quiz">Quiz</button>
+<button role="tab" data-act="tab" data-v="plan">Planning</button>
+</nav></div></header>
+<main id="main"></main>
+<script>
+const KEY="revise-v1";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const shuffle=a=>a.slice().sort(()=>Math.random()-.5);
+const todayD=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
+let S={cards:[],tasks:[],exam:{name:"",date:""},tab:"fiches",filter:"",seeded:false,docs:[],week:{note:"",plan:null}};
+try{const r=localStorage.getItem(KEY);if(r)Object.assign(S,JSON.parse(r))}catch(e){}
+if(!S.seeded){S.seeded=true;S.cards=[
+{id:uid(),q:"Capitale de l’Australie ?",a:"Canberra",s:"Exemple",b:0},
+{id:uid(),q:"Aire d’un disque de rayon r ?",a:"π × r²",s:"Exemple",b:0},
+{id:uid(),q:"Année de la prise de la Bastille ?",a:"1789",s:"Exemple",b:0},
+{id:uid(),q:"Symbole chimique du sodium ?",a:"Na",s:"Exemple",b:0}]}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+let R={id:null,flip:false},Q=null;
+
+const pool=()=>S.cards.filter(c=>!S.filter||c.s===S.filter);
+function pick(){const p=pool();if(!p.length){R.id=null;return}
+const w=p.map(c=>[4,2,1,.5][c.b||0]);let t=Math.random()*w.reduce((a,b)=>a+b),i=0;
+while(i<p.length-1&&(t-=w[i])>0)i++;
+if(p.length>1&&p[i].id===R.id)i=(i+1)%p.length;R.id=p[i].id;R.flip=false}
+const bump=(c,up)=>{c.b=up?Math.min(3,(c.b||0)+1):0};
+const dots=b=>"●".repeat(b||0)+"○".repeat(3-(b||0));
+
+function vFiches(){
+if(!R.id||!S.cards.some(c=>c.id===R.id))pick();
+const subs=[...new Set(S.cards.map(c=>c.s).filter(Boolean))];
+const c=S.cards.find(x=>x.id===R.id);
+let h=`<section><div class="row"><h2>Réviser</h2>${subs.length?`<select id="flt" aria-label="Filtrer par matière"><option value="">Toutes les matières</option>${subs.map(s=>`<option ${S.filter===s?"selected":""}>${esc(s)}</option>`).join("")}</select>`:""}</div>`;
+if(c){h+=`<button class="card" data-act="flip" aria-label="Retourner la fiche"><small>${R.flip?"Réponse":"Question"}</small><p>${esc(R.flip?c.a:c.q)}</p></button>`;
+h+=R.flip?`<div class="btns"><button class="btn ko" data-act="again">À revoir</button><button class="btn ok" data-act="know">Je sais</button></div>`:`<p class="hint">Touche la fiche pour voir la réponse. Les fiches que tu rates reviennent plus souvent.</p>`}
+else h+=`<p class="empty">Aucune fiche ici. Ajoute la première ci-dessous.</p>`;
+h+=`</section><section><h2>Nouvelle fiche</h2><form id="addc"><textarea name="q" rows="2" required placeholder="Question ou notion"></textarea><textarea name="a" rows="2" required placeholder="Réponse"></textarea><input name="s" list="subs" placeholder="Matière (facultatif)" value="${esc(S.filter)}"><datalist id="subs">${subs.map(s=>`<option value="${esc(s)}">`).join("")}</datalist><button class="btn main">Ajouter la fiche</button></form></section>`;
+h+=`<section><h2>Mes fiches (${S.cards.length})</h2>${S.cards.length?`<ul class="list">${S.cards.map(c=>`<li><div class="t">${esc(c.q)}<span>${esc(c.a)}${c.s?" · "+esc(c.s):""}</span></div><span class="dots" title="Niveau de maîtrise">${dots(c.b)}</span><button class="x" data-act="del" data-id="${c.id}" aria-label="Supprimer la fiche">×</button></li>`).join("")}</ul>`:`<p class="empty">Ta liste est vide.</p>`}</section>`;
+return h}
+
+function startQuiz(){
+Q={l:shuffle(S.cards).slice(0,10).map(c=>{const w=[...new Set(S.cards.filter(x=>x.a!==c.a).map(x=>x.a))];return{c,o:shuffle([c.a,...shuffle(w).slice(0,3)])}}),i:0,sc:0,p:null}}
+function vQuiz(){
+const n=new Set(S.cards.map(c=>c.a)).size;
+if(n<4)return`<section><h2>Quiz</h2><p class="empty">Il faut au moins 4 fiches avec des réponses différentes pour lancer un quiz. Tu en as ${n}.</p></section>`;
+if(!Q)return`<section><h2>Quiz</h2><p class="hint">10 questions tirées de tes fiches, avec 4 choix. Les erreurs remontent dans ta pile de révision.</p><button class="btn main" data-act="qstart">Lancer le quiz</button></section>`;
+if(Q.i>=Q.l.length)return`<section><h2>Résultat</h2><p class="score">${Q.sc} / ${Q.l.length}</p><p class="hint">${Q.sc===Q.l.length?"Sans faute.":"Les fiches ratées sont à revoir dans l’onglet Fiches."}</p><button class="btn main" data-act="qstart">Rejouer</button></section>`;
+const it=Q.l[Q.i];
+return`<section><div class="row"><h2>Question ${Q.i+1} sur ${Q.l.length}</h2><span class="hint">Score : ${Q.sc}</span></div><p class="q">${esc(it.c.q)}</p><div>${it.o.map((o,k)=>{let cl="";if(Q.p!==null){if(o===it.c.a)cl="ok";else if(k===Q.p)cl="ko"}return`<button class="opt ${cl}" data-act="qpick" data-k="${k}" ${Q.p!==null?"disabled":""}>${esc(o)}</button>`}).join("")}</div>${Q.p!==null?`<button class="btn main" data-act="qnext">${Q.i+1===Q.l.length?"Voir le résultat":"Question suivante"}</button>`:""}</section>`}
+
+const fmt=d=>new Date(d+"T00:00").toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"});
+function vPlan(){
+let h=`<section><h2>Mon examen</h2>`;
+if(S.exam.date){const d=Math.round((new Date(S.exam.date+"T00:00")-todayD())/864e5),nm=esc(S.exam.name||"l’examen");
+h+=`<p class="count">${d>0?`<b>${d}</b> jour${d>1?"s":""} avant ${nm}`:d===0?`C’est aujourd’hui : ${nm}`:`${nm} est passé`}</p>`}
+h+=`<form id="exam"><input name="n" placeholder="Nom (ex. partiel de maths)" value="${esc(S.exam.name)}"><input name="d" type="date" required value="${esc(S.exam.date)}" aria-label="Date de l’examen"><button class="btn">Enregistrer la date</button></form></section>`;
+const t=S.tasks.slice().sort((a,b)=>(a.done-b.done)||((a.d||"9")>(b.d||"9")?1:-1)),dn=S.tasks.filter(x=>x.done).length,td=todayD();
+h+=`<section><h2>À faire</h2>${S.tasks.length?`<progress max="${S.tasks.length}" value="${dn}" aria-label="Avancement"></progress><p class="hint">${dn} sur ${S.tasks.length} terminées</p>`:""}<form id="addt"><input name="t" required placeholder="Ex. chapitre 3 de physique"><select name="c" aria-label="Catégorie"><option value="etudes">Études</option><option value="perso">Perso (hors études)</option></select><input name="d" type="date" aria-label="Date prévue"><button class="btn main">Ajouter au planning</button></form>`;
+h+=t.length?`<ul class="list">${t.map(x=>{const late=x.d&&!x.done&&new Date(x.d+"T00:00")<td;return`<li class="${x.done?"done":""} ${late?"late":""}"><button class="chk" data-act="tdone" data-id="${x.id}" aria-pressed="${!!x.done}" aria-label="Marquer comme fait">${x.done?"✓":""}</button><div class="t">${esc(x.t)}${x.c==="perso"?" (perso)":""}${x.d?`<span>${late?"En retard · ":""}${fmt(x.d)}</span>`:""}</div><button class="x" data-act="tdel" data-id="${x.id}" aria-label="Supprimer la tâche">×</button></li>`}).join("")}</ul>`:`<p class="empty">Planifie ta première séance de révision.</p>`;
+return h+`</section>`+vWeek()}
+
+let BUSY="",MSG="";
+const clip=(t,n)=>t.length>n?t.slice(0,n):t;
+const dec=s=>s.replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,"&");
+const xml=x=>dec(x.replace(/<\/(a:p|w:p)>/g,"\n").replace(/<[^>]+>/g,""));
+const md=s=>esc(s).split("\n").map(l=>{l=l.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");let m;if(m=l.match(/^#{1,4}\s+(.*)/))return`<h3>${m[1]}</h3>`;if(m=l.match(/^\s*[-*]\s+(.*)/))return`<p class="li">• ${m[1]}</p>`;return l.trim()?`<p>${l}</p>`:""}).join("");
+const msg=()=>MSG?`<p class="hint" role="status">${esc(MSG)}</p>`:"";
+
+async function readFile(f){
+const n=f.name.toLowerCase();
+if(n.endsWith(".pdf")){pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";const p=await pdfjsLib.getDocument({data:await f.arrayBuffer()}).promise;let t="";for(let i=1;i<=p.numPages;i++){const c=await(await p.getPage(i)).getTextContent();t+=c.items.map(x=>x.str).join(" ")+"\n\n"}return t}
+if(n.endsWith(".pptx")||n.endsWith(".docx")){const ppt=n.endsWith(".pptx"),z=await JSZip.loadAsync(f);const ks=Object.keys(z.files).filter(k=>ppt?/^ppt\/slides\/slide\d+\.xml$/.test(k):k==="word/document.xml").sort((a,b)=>a.replace(/\D/g,"")-b.replace(/\D/g,""));let t="";for(const k of ks)t+=xml(await z.files[k].async("string"))+"\n\n";return t}
+if(/\.(ppt|doc)$/.test(n))throw new Error("ancien format, enregistre-le en .pptx ou .docx");
+return f.text()}
+function addDoc(n,k,t){t=t.replace(/[ \t]+/g," ").trim();if(t.length<50){MSG="Texte trop court pour « "+n+" ».";return}S.docs.unshift({id:uid(),n,k,t:clip(t,40000),sum:""})}
+async function importFiles(fl){
+const k=document.getElementById("kind").value,st=document.getElementById("st"),errs=[];
+for(const f of fl){try{if(st)st.textContent="Lecture de "+f.name+"…";const t=await readFile(f);if(t.replace(/\s/g,"").length<50)throw new Error("aucun texte trouvé (PDF scanné ?)");addDoc(f.name.replace(/\.[^.]+$/,""),k,t)}catch(e){errs.push(f.name+" : "+(e.message||"lecture impossible"))}}
+if(errs.length)MSG="Import impossible — "+errs.join(" ; ");render()}
+
+async function ai(a,id){
+if(BUSY)return;
+const sample=await(window.claude&&claude.use("sample"));
+if(!sample){MSG="L’assistant n’est pas disponible ici. Ouvre la page depuis claude.ai.";return render()}
+const d=S.docs.find(x=>x.id===id),note=document.getElementById("wnote");
+if(note)S.week.note=note.value;
+BUSY=a+(id||"");MSG="";render();
+try{
+if(a==="dsum"){const td=d.k==="td";
+const r=await sample(`Tu aides un étudiant à réviser. Voici ${td?"un TD (travaux dirigés)":"un cours"} intitulé « ${d.n} ». ${td?"Fais une fiche de méthode : les types d’exercices, les méthodes et formules à retenir, les pièges fréquents et un exemple de raisonnement.":"Écris une fiche de révision claire : l’essentiel en 5 à 8 points, les définitions et formules clés, puis ce qu’il faut savoir faire."} Réponds en français, en Markdown simple (titres ##, listes -, **gras**), sans introduction.\n\nCONTENU :\n${clip(d.t,28000)}`);
+d.sum=r.text}
+else if(a==="dcards"){
+const r=await sample.json(`À partir de ce ${d.k==="td"?"TD":"cours"} intitulé « ${d.n} », crée de 8 à 15 fiches de révision question/réponse. Réponses courtes (12 mots maximum), en français. Réponds uniquement avec un tableau JSON : [{"q":"question","a":"réponse"}].\n\nCONTENU :\n${clip(d.t,28000)}`);
+const l=(Array.isArray(r)?r:[]).filter(x=>x&&x.q&&x.a);l.forEach(x=>S.cards.push({id:uid(),q:String(x.q),a:String(x.a),s:d.n,b:0}));
+MSG=l.length?l.length+" fiches ajoutées dans l’onglet Fiches (matière : "+d.n+").":"Aucune fiche n’a pu être créée."}
+else{
+const dt=x=>x?new Date(x+"T00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}):"sans date";
+const tasks=S.tasks.filter(x=>!x.done).map(x=>`- ${x.t} (${x.c==="perso"?"perso":"études"}, ${dt(x.d)})`).join("\n")||"aucune";
+const r=await sample.json(`Aujourd’hui : ${new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}.\nExamen : ${S.exam.date?(S.exam.name||"examen")+", le "+dt(S.exam.date):"non précisé"}.\nCours et TD à réviser : ${S.docs.map(x=>x.n).join(", ")||"non précisés"}.\nTâches à faire :\n${tasks}\nContraintes et horaires de l’étudiant : ${S.week.note||"aucune"}.\n\nConstruis son emploi du temps pour les 7 prochains jours, à partir d’aujourd’hui. Place d’abord les contraintes fixes, puis les tâches (études et perso) avant leur date, puis des séances de révision de 45 à 90 minutes avec des pauses. Prévois repas, sommeil et un vrai moment de repos, et pas plus de 6 h de révision par jour. Réponds uniquement en JSON : {"jours":[{"jour":"lundi 17 novembre","items":[{"h":"08:00-09:00","t":"description","c":"revision|perso|fixe|pause"}]}],"conseil":"une phrase"}`);
+if(r&&Array.isArray(r.jours))S.week.plan=r;else MSG="Le planning n’a pas pu être créé. Réessaie."}
+}catch(e){MSG=e&&e.code==="not_granted"?"Autorisation refusée : l’assistant ne peut pas être utilisé.":"L’assistant n’a pas pu répondre. Réessaie dans un instant."}
+BUSY="";render()}
+
+function vCours(){
+let h=`<section><h2>Mes cours et TD</h2><p class="hint">Ajoute un PDF, un PowerPoint (.pptx), un Word (.docx) ou un fichier texte. Les PDF scannés (images) ne sont pas lisibles.</p><div class="row"><select id="kind" aria-label="Type de document"><option value="cours">Cours</option><option value="td">TD</option></select><input id="file" type="file" multiple accept=".pdf,.pptx,.docx,.txt,.md" aria-label="Choisir des fichiers"></div><p class="hint" id="st"></p>${msg()}<form id="paste"><input name="n" placeholder="Titre (ex. Chapitre 2)"><select name="k" aria-label="Type"><option value="cours">Cours</option><option value="td">TD</option></select><textarea name="t" rows="4" required placeholder="Ou colle ici le texte de ton cours"></textarea><button class="btn">Ajouter ce texte</button></form></section><section>`;
+h+=S.docs.length?S.docs.map(d=>`<article class="doc"><div class="row"><b>${esc(d.n)}</b><span class="hint">${d.k==="td"?"TD":"Cours"}</span></div><button class="x" data-act="docdel" data-id="${d.id}" aria-label="Supprimer le document">×</button><div class="btns"><button class="btn main" data-act="dsum" data-id="${d.id}" ${BUSY?"disabled":""}>${BUSY==="dsum"+d.id?"Création…":d.sum?"Refaire la fiche":"Fiche de révision"}</button><button class="btn" data-act="dcards" data-id="${d.id}" ${BUSY?"disabled":""}>${BUSY==="dcards"+d.id?"Création…":"Créer des fiches"}</button></div>${d.sum?`<details open><summary>Fiche de révision</summary><div class="md">${md(d.sum)}</div></details>`:""}</article>`).join(""):`<p class="empty">Aucun document. Importe ton premier cours ci-dessus.</p>`;
+return h+`</section>`}
+
+function vWeek(){
+const w=S.week,p=w.plan;
+let h=`<section><h2>Ma semaine</h2><p class="hint">Dis-moi tes horaires et contraintes. Je construis la semaine avec tes tâches, tes cours à réviser et ta vie perso.</p><textarea id="wnote" rows="4" placeholder="Ex. cours lundi 8h-12h, travail samedi, sport mardi soir, plus efficace le matin…">${esc(w.note||"")}</textarea><button class="btn main" data-act="wgen" ${BUSY?"disabled":""}>${BUSY==="wgen"?"Création en cours…":p?"Refaire ma semaine":"Générer ma semaine"}</button>${msg()}`;
+if(p&&p.jours)h+=`<div class="week">${p.jours.map(j=>`<div class="day"><h3>${esc(j.jour||"")}</h3><ul class="list">${(j.items||[]).map(i=>`<li class="${/^(revision|perso|fixe|pause)$/.test(i.c)?i.c:""}"><b>${esc(i.h||"")}</b><div class="t">${esc(i.t||"")}</div></li>`).join("")}</ul></div>`).join("")}</div>${p.conseil?`<p class="hint">${esc(p.conseil)}</p>`:""}`;
+return h+`</section>`}
+
+function render(){
+document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===S.tab));
+const m=document.getElementById("main");
+m.innerHTML=({cours:vCours,fiches:vFiches,quiz:vQuiz,plan:vPlan}[S.tab]||vFiches)()+`<p class="foot">Tes fiches et ton planning restent sur cet appareil, dans ce navigateur.</p>`;
+save()}
+document.querySelectorAll("nav button").forEach(b=>b.setAttribute("data-tab",""));
+
+document.addEventListener("click",e=>{
+const b=e.target.closest("[data-act]");if(!b)return;
+const a=b.dataset.act,id=b.dataset.id,cur=S.cards.find(c=>c.id===R.id);
+if(a==="dsum"||a==="dcards"||a==="wgen")return ai(a,id);
+if(a==="tab"){S.tab=b.dataset.v;MSG=""}
+else if(a==="docdel"){S.docs=S.docs.filter(d=>d.id!==id)}
+else if(a==="flip"){R.flip=!R.flip}
+else if(a==="know"||a==="again"){bump(cur,a==="know");pick()}
+else if(a==="del"){S.cards=S.cards.filter(c=>c.id!==id);if(R.id===id)pick()}
+else if(a==="qstart"){startQuiz()}
+else if(a==="qpick"){if(Q.p!==null)return;const it=Q.l[Q.i];Q.p=+b.dataset.k;const ok=it.o[Q.p]===it.c.a;if(ok)Q.sc++;bump(it.c,ok)}
+else if(a==="qnext"){Q.i++;Q.p=null}
+else if(a==="tdone"){const t=S.tasks.find(x=>x.id===id);t.done=!t.done}
+else if(a==="tdel"){S.tasks=S.tasks.filter(x=>x.id!==id)}
+render();if(a==="tab")window.scrollTo(0,0)});
+document.addEventListener("change",e=>{if(e.target.id==="flt"){S.filter=e.target.value;pick();render()}
+else if(e.target.id==="file")importFiles(e.target.files);
+else if(e.target.id==="wnote"){S.week.note=e.target.value;save()}});
+document.addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.target),id=e.target.id;
+if(id==="addc"){S.cards.push({id:uid(),q:f.get("q").trim(),a:f.get("a").trim(),s:(f.get("s")||"").trim(),b:0})}
+else if(id==="exam"){S.exam={name:f.get("n").trim(),date:f.get("d")}}
+else if(id==="addt"){S.tasks.push({id:uid(),t:f.get("t").trim(),d:f.get("d")||"",c:f.get("c"),done:false})}
+else if(id==="paste"){addDoc(f.get("n").trim()||"Texte collé",f.get("k"),f.get("t"))}
+render()});
+render();
+</script>
+</body>
+</html>
